@@ -10,8 +10,7 @@ color_plate = {0: [col[0]],
                1: [col[1]],
                2: [col[2]],
                3: [col[3]],
-               4: [col[4]],
-               5: [col[5]]}
+               4: [col[4]]}
 
 for i in range(25):
     cl = random.choice(col)
@@ -24,8 +23,6 @@ for i in range(25):
 
 
 def draw_tiles(color, x, y):
-    print(x)
-    print(y)
     square = turtle.Turtle()
     square.hideturtle()
     square.penup()
@@ -54,7 +51,17 @@ def board():
         draw_tiles(tile[i][0], tile[i][1], tile[i][2])
 
 
+def plate():
+    for i in range(5):
+        color_plate[i].append(-240 + (i*65))
+        color_plate[i].append(-185)
+
+    for i in range(5):
+        draw_tiles(color_plate[i][0], color_plate[i][1], color_plate[i][2])
+
+
 board()
-print(tile[0])
+plate()
+
 # turtle.onscreenclick(draw_tiles)
 turtle.mainloop()

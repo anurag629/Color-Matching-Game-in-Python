@@ -6,14 +6,19 @@ x_axis = -220  # global variable to store the first block x-axis
 y_axis = 160  # global variable to store the first block y-axis
 
 
-# global variable to stores color in color plate
+# global variable 'col' to stores color in color plate
 col = ["aqua", "red", "blue", "brown", "green"]
+
+# global variable of dictionary to store the block number from 0-24(total 25 blocks)
+# key defined number of block and values are of type list which contains [color, x-axis, y-axis, contains norder or not]
 tile = {}
 
+# these two list stores the which block is clicked and selected
 tile_selected = [-1, 0]
 color_plate_selected = [-1, 0]
 
-
+# this dictionary stores data of color plate below 5*5 tiles
+# key is number of color and value contains [color,  x-axis, y-axis]
 color_plate = {0: [col[0]],
                1: [col[1]],
                2: [col[2]],
@@ -21,11 +26,15 @@ color_plate = {0: [col[0]],
                4: [col[4]]}
 
 
+# below block of code selects random colors from 'col' and stores in the tile dictionary
 for i in range(25):
     cl = random.choice(col)
     tile[i] = list(cl.split(" "))
 
 
+# below function is to draw the tiles of 60*60  size
+# this function also checks weather tiles contains border or not
+# this function accepts four variable (color:type string, x-axis:type iinteger, y-axis:type iinteger, border: type integer)
 def draw_tiles(color, x, y, border):
     square = turtle.Turtle()
     square.speed(0)
@@ -60,6 +69,8 @@ def draw_tiles(color, x, y, border):
         square.end_fill()
 
 
+# this function gives the x and y axis to each tiles in 5*5 board
+# this function also call function draw_tiles() to draw tiles
 def board():
     for i in range(5):
         for j in range(5):
@@ -71,6 +82,8 @@ def board():
         draw_tiles(tile[i][0], tile[i][1], tile[i][2], tile[i][3])
 
 
+# this function gives the x and y axis to each color in color plate
+# this function also call function draw_tiles() to draw color plate
 def plate():
     for i in range(5):
         color_plate[i].append(-240 + (i*65))
@@ -82,6 +95,8 @@ def plate():
                    color_plate[i][2], color_plate[i][3])
 
 
+# this is logic function this function accepts the selected tiles from board and selected color from color plate
+# this function checks near by tiles weather its color is same of not if its same then it calls itself recusevely
 def logic(tile_selected, color_selected):
     colorr = tile[tile_selected][0]
     tile[tile_selected][0] = color_plate[color_selected][0]
@@ -182,6 +197,9 @@ def logic(tile_selected, color_selected):
                 logic(tile_selected-4, color_selected)
 
 
+# this function catch the x and y axis of mouse click and checks weather it is from board tiles or from color plate
+# when select tiles from board and then we select what color we want to choose from color plate
+# after selecting tiles and color it calls logic() function
 def catch_color(x, y):
     if((x > -220) and (x < 100) and (y < 220) and (y > -100)):
         for i in range(25):
@@ -209,8 +227,12 @@ def catch_color(x, y):
         color_plate_selected[1] = 0
 
 
+# here we called the board function and plate function to draw board and plate for first time
 board()
 plate()
 
+# this enables and accepts the mouse click and calls catch_color() fuunction with passing x and y axis
 turtle.onscreenclick(catch_color)
+
+# mainloop() is used to do not close automatically screen after completion of color chnages.
 turtle.mainloop()

@@ -7,6 +7,9 @@ y_axis = 160
 col = ["aqua", "red", "blue", "brown", "green"]
 tile = {}
 
+tile_selected = [-1, 0]
+color_plate_selected = [-1, 0]
+
 
 color_plate = {0: [col[0]],
                1: [col[1]],
@@ -77,26 +80,133 @@ def plate():
 
 
 def logic(tile_selected, color_selected):
-    pass
+    colorr = tile[tile_selected][0]
+    tile[tile_selected][0] = color_plate[color_selected][0]
+    print(tile[tile_selected][0])
+    draw_tiles(tile[tile_selected][0], tile[tile_selected][1],
+               tile[tile_selected][2], tile[tile_selected][3])
+
+    if(tile_selected // 5 == 0):
+        if(tile_selected % 5 == 0):
+            if(tile[tile_selected + 1][0] == colorr):
+                logic(tile_selected+1, color_selected)
+            if(tile[tile_selected + 5][0] == colorr):
+                logic(tile_selected+5, color_selected)
+            if(tile[tile_selected + 6][0] == colorr):
+                logic(tile_selected+6, color_selected)
+        elif(tile_selected % 5 == 4):
+            if(tile[tile_selected - 1][0] == colorr):
+                logic(tile_selected-1, color_selected)
+            if(tile[tile_selected + 5][0] == colorr):
+                logic(tile_selected+5, color_selected)
+            if(tile[tile_selected + 4][0] == colorr):
+                logic(tile_selected+4, color_selected)
+        else:
+            if(tile[tile_selected + 1][0] == colorr):
+                logic(tile_selected+1, color_selected)
+            if(tile[tile_selected + 5][0] == colorr):
+                logic(tile_selected+5, color_selected)
+            if(tile[tile_selected - 1][0] == colorr):
+                logic(tile_selected-1, color_selected)
+            if(tile[tile_selected + 6][0] == colorr):
+                logic(tile_selected+6, color_selected)
+            if(tile[tile_selected + 4][0] == colorr):
+                logic(tile_selected+4, color_selected)
+    elif(tile_selected // 5 == 4):
+        if(tile_selected % 5 == 0):
+            if(tile[tile_selected + 1][0] == colorr):
+                logic(tile_selected+1, color_selected)
+            if(tile[tile_selected - 5][0] == colorr):
+                logic(tile_selected-5, color_selected)
+            if(tile[tile_selected - 4][0] == colorr):
+                logic(tile_selected-4, color_selected)
+        elif(tile_selected % 5 == 4):
+            if(tile[tile_selected - 1][0] == colorr):
+                logic(tile_selected-1, color_selected)
+            if(tile[tile_selected - 5][0] == colorr):
+                logic(tile_selected-5, color_selected)
+            if(tile[tile_selected - 6][0] == colorr):
+                logic(tile_selected-6, color_selected)
+        else:
+            if(tile[tile_selected + 1][0] == colorr):
+                logic(tile_selected+1, color_selected)
+            if(tile[tile_selected - 5][0] == colorr):
+                logic(tile_selected-5, color_selected)
+            if(tile[tile_selected - 1][0] == colorr):
+                logic(tile_selected-1, color_selected)
+            if(tile[tile_selected - 6][0] == colorr):
+                logic(tile_selected-6, color_selected)
+            if(tile[tile_selected - 4][0] == colorr):
+                logic(tile_selected-4, color_selected)
+    else:
+        if(tile_selected % 5 == 0):
+            if(tile[tile_selected + 1][0] == colorr):
+                logic(tile_selected+1, color_selected)
+            if(tile[tile_selected + 5][0] == colorr):
+                logic(tile_selected+5, color_selected)
+            if(tile[tile_selected - 5][0] == colorr):
+                logic(tile_selected-5, color_selected)
+            if(tile[tile_selected + 6][0] == colorr):
+                logic(tile_selected+6, color_selected)
+            if(tile[tile_selected - 4][0] == colorr):
+                logic(tile_selected-4, color_selected)
+        elif(tile_selected % 5 == 4):
+            if(tile[tile_selected - 1][0] == colorr):
+                logic(tile_selected-1, color_selected)
+            if(tile[tile_selected + 5][0] == colorr):
+                logic(tile_selected+5, color_selected)
+            if(tile[tile_selected - 5][0] == colorr):
+                logic(tile_selected-5, color_selected)
+            if(tile[tile_selected - 6][0] == colorr):
+                logic(tile_selected-6, color_selected)
+            if(tile[tile_selected + 4][0] == colorr):
+                logic(tile_selected+4, color_selected)
+        else:
+            if(tile[tile_selected + 1][0] == colorr):
+                logic(tile_selected+1, color_selected)
+            if(tile[tile_selected - 5][0] == colorr):
+                logic(tile_selected-5, color_selected)
+            if(tile[tile_selected - 1][0] == colorr):
+                logic(tile_selected-1, color_selected)
+            if(tile[tile_selected + 5][0] == colorr):
+                logic(tile_selected+5, color_selected)
+            if(tile[tile_selected + 6][0] == colorr):
+                logic(tile_selected+6, color_selected)
+            if(tile[tile_selected + 4][0] == colorr):
+                logic(tile_selected+4, color_selected)
+            if(tile[tile_selected - 6][0] == colorr):
+                logic(tile_selected-6, color_selected)
+            if(tile[tile_selected - 4][0] == colorr):
+                logic(tile_selected-4, color_selected)
 
 
 def catch_color(x, y):
-    tile_selected = []
-    color_plate_selected = []
+    if((x > -220) and (x < 100) and (y < 220) and (y > -100)):
+        for i in range(25):
+            if((x > tile[i][1]) and (x < tile[i][1] + 60) and (y > tile[i][2]) and (y < tile[i][2] + 60)):
+                tile[i][3] = 1
+                tile_selected[1] = tile_selected[1] + 1
+                tile_selected[0] = i
 
-    for i in range(25):
-        if((x > tile[i][1]) and (x < tile[i][1] + 60) and (y > tile[i][2]) and (y < tile[i][2] + 60)):
-            tile[i][3] = 1
-            tile_selected.append(tile[i][0])
-        else:
-            tile[i][3] = 0
+            else:
+                tile[i][3] = 0
 
-        draw_tiles(tile[i][0], tile[i][1], tile[i][2], tile[i][3])
+            draw_tiles(tile[i][0], tile[i][1], tile[i][2], tile[i][3])
+    if((x < 80) and (x > -240) and (y > -185) and (y < -125)):
+        for i in range(5):
+            if((x > color_plate[i][1]) and (x < color_plate[i][1] + 60) and (y > color_plate[i][2]) and (y < color_plate[i][2] + 60)):
+                color_plate_selected[1] = color_plate_selected[1] + 1
+                color_plate_selected[0] = i
 
-    for i in range(5):
-        if((x > color_plate[i][1]) and (x < color_plate[i][1] + 60) and (y > color_plate[i][2]) and (y < color_plate[i][2] + 60)):
-            print(color_plate[i][0])
-            color_plate_selected.append(color_plate[i][0])
+    print(tile_selected[0])
+    print(color_plate_selected[0])
+    if(tile_selected[1] < 2 and color_plate_selected[1] < 2):
+        if tile_selected[0] != -1:
+            if color_plate_selected[0] != -1:
+                logic(tile_selected[0], color_plate_selected[0])
+    else:
+        tile_selected[1] = 0
+        color_plate_selected[1] = 0
 
 
 board()

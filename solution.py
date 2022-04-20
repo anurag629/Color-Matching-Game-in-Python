@@ -1,9 +1,12 @@
 import turtle
 import random
 
-turtle.speed(0)
-x_axis = -220
-y_axis = 160
+turtle.speed(0)  # this makes the speed fo turtle to fastest
+x_axis = -220  # global variable to store the first block x-axis
+y_axis = 160  # global variable to store the first block y-axis
+
+
+# global variable to stores color in color plate
 col = ["aqua", "red", "blue", "brown", "green"]
 tile = {}
 
@@ -82,7 +85,6 @@ def plate():
 def logic(tile_selected, color_selected):
     colorr = tile[tile_selected][0]
     tile[tile_selected][0] = color_plate[color_selected][0]
-    print(tile[tile_selected][0])
     draw_tiles(tile[tile_selected][0], tile[tile_selected][1],
                tile[tile_selected][2], tile[tile_selected][3])
 
@@ -198,8 +200,6 @@ def catch_color(x, y):
                 color_plate_selected[1] = color_plate_selected[1] + 1
                 color_plate_selected[0] = i
 
-    print(tile_selected[0])
-    print(color_plate_selected[0])
     if(tile_selected[1] < 2 and color_plate_selected[1] < 2):
         if tile_selected[0] != -1:
             if color_plate_selected[0] != -1:
